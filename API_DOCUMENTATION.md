@@ -203,21 +203,26 @@ Import the provided **`postman_collection.json`** file into Postman.
 
 ---
 
-# 📸 API Documentation Screenshots
+## 📸 API Documentation Screenshots
 
-## 1️⃣ Swagger UI (All Endpoints Visible)
+### 1️⃣ Swagger UI (All Endpoints Visible)
 ![Swagger UI All Endpoints](./screenshots/swagger_all_endpoints.png)
 
-## 2️⃣ Swagger Testing Example (GET `/api/v1/tasks`)
+### 2️⃣ Swagger Testing Example (GET `/api/v1/tasks`)
 ![Swagger Testing](./screenshots/swagger_get_tasks.png)
 
-## 3️⃣ Postman Collection (All Requests Visible)
+### 3️⃣ Postman Collection (All Requests Visible)
 ![Postman Collection](./screenshots/postman_collection.png)
 
-## 4️⃣ Postman Test (POST `/api/v1/auth/login`)
+### 4️⃣ Postman Test (POST `/api/v1/auth/login`)
 ![Postman Login Test](./screenshots/postman_login_test.png)
-## 📸 Swagger Login Success
+
+### 5️⃣ Swagger Login Success
 ![Swagger Login Success](./screenshots/swagger_login_success.png)
+
+### 🗄️ Database Verification (MySQL Workbench)
+![MySQL Database Verification](./screenshots/mysql_users_table.png)
+
 
 ## 🗄️ Database Schema
 ... (schema SQL) ...
