@@ -3,7 +3,7 @@
 A **production-ready REST API** built using **Spring Boot 3** for managing tasks with **JWT Authentication** and **Role-Based Access Control**.
 
 
-## ✨ Features
+##  Features
 
 - ✅ User Registration & Login with JWT (24-hour token expiration)
 - ✅ Role-Based Access (USER / ADMIN)

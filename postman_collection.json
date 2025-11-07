@@ -23,7 +23,7 @@
                   "    pm.environment.set('user_id', jsonData.user.id);",
                   "    pm.environment.set('user_email', jsonData.user.email);",
                   "    pm.environment.set('user_role', jsonData.user.role);",
-                  "    console.log('✅ Registration successful! Token saved.');",
+                  "    console.log(' Registration successful! Token saved.');",
                   "}"
                 ]
               }
@@ -64,7 +64,7 @@
                   "    pm.environment.set('jwt_token', jsonData.token);",
                   "    pm.environment.set('user_id', jsonData.user.id);",
                   "    pm.environment.set('user_role', jsonData.user.role);",
-                  "    console.log('✅ Login successful! Token saved for: ' + jsonData.user.email);",
+                  "    console.log('Login successful! Token saved for: ' + jsonData.user.email);",
                   "}"
                 ]
               }
@@ -134,7 +134,7 @@
                   "if (pm.response.code === 201) {",
                   "    var jsonData = pm.response.json();",
                   "    pm.environment.set('task_id', jsonData.id);",
-                  "    console.log('✅ Task created! ID: ' + jsonData.id);",
+                  "    console.log('Task created! ID: ' + jsonData.id);",
                   "}"
                 ]
               }
