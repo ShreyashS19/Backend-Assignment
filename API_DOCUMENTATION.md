@@ -204,24 +204,31 @@ Import the provided **`postman_collection.json`** file into Postman.
 ---
 
 ## 📸 API Documentation Screenshots
-
 ### 1️⃣ Swagger UI (All Endpoints Visible)
-![Swagger UI All Endpoints](./screenshots/swagger_all_endpoints.png)
+![Swagger UI — All endpoints](screenshots/swagger_all_endpoints.png)
+[View full image](screenshots/swagger_all_endpoints.png)
 
 ### 2️⃣ Swagger Testing Example (GET `/api/v1/tasks`)
-![Swagger Testing](./screenshots/swagger_get_tasks.png)
+![Swagger Testing — GET /api/v1/tasks](screenshots/swagger_get_tasks.png)
+[View full image](screenshots/swagger_get_tasks.png)
 
 ### 3️⃣ Postman Collection (All Requests Visible)
-![Postman Collection](./screenshots/postman_collection.png)
+![Postman Collection — All requests](screenshots/postman_collection.png)
+[View full image](screenshots/postman_collection.png)
 
 ### 4️⃣ Postman Test (POST `/api/v1/auth/login`)
-![Postman Login Test](./screenshots/postman_login_test.png)
+![Postman Login Test — POST /api/v1/auth/login](screenshots/postman_login_test.png)
+[View full image](screenshots/postman_login_test.png)
 
 ### 5️⃣ Swagger Login Success
-![Swagger Login Success](./screenshots/swagger_login_success.png)
+![Swagger Login Success](screenshots/swagger_login_success.png)
+[View full image](screenshots/swagger_login_success.png)
 
 ### 🗄️ Database Verification (MySQL Workbench)
-![MySQL Database Verification](./screenshots/mysql_users_table.png)
+![MySQL Database Verification](screenshots/mysql_users_table.png)
+[View full image](screenshots/mysql_users_table.png)
+
+Note: Ensure the `screenshots/` folder and these files are committed to the repository so GitHub can render the images.
 
 
 ## 🗄️ Database Schema
