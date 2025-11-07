@@ -1,0 +1,327 @@
+{
+  "info": {
+    "_postman_id": "taskflow-backend-api-2025",
+    "name": "TaskFlow Backend API",
+    "description": "Complete API collection for TaskFlow Backend - User authentication, task management, and admin operations with JWT authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication Endpoints",
+      "description": "User registration and login endpoints - Public (no token required)",
+      "item": [
+        {
+          "name": "Register New User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('jwt_token', jsonData.token);",
+                  "    pm.environment.set('user_id', jsonData.user.id);",
+                  "    pm.environment.set('user_email', jsonData.user.email);",
+                  "    pm.environment.set('user_role', jsonData.user.role);",
+                  "    console.log('✅ Registration successful! Token saved.');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"USER\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "auth", "register"]
+            },
+            "description": "Register a new user account.\n\nResponse:\n- Returns JWT token\n- Returns user information\n- Token auto-saved to environment"
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('jwt_token', jsonData.token);",
+                  "    pm.environment.set('user_id', jsonData.user.id);",
+                  "    pm.environment.set('user_role', jsonData.user.role);",
+                  "    console.log('✅ Login successful! Token saved for: ' + jsonData.user.email);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Login with registered credentials. Token is auto-saved for later requests."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Task Management Endpoints",
+      "description": "Task CRUD operations - Protected (JWT token required)",
+      "item": [
+        {
+          "name": "Get All My Tasks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "tasks"]
+            },
+            "description": "Get all tasks created by the logged-in user."
+          }
+        },
+        {
+          "name": "Create New Task",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('task_id', jsonData.id);",
+                  "    console.log('✅ Task created! ID: ' + jsonData.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete project\",\n  \"description\": \"Finish the backend implementation and testing\",\n  \"completed\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "tasks"]
+            },
+            "description": "Create a new task for the logged-in user."
+          }
+        },
+        {
+          "name": "Get Single Task by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/tasks/{{task_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
+            },
+            "description": "Retrieve task by ID (requires valid JWT)."
+          }
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Task Title\",\n  \"description\": \"Updated description\",\n  \"completed\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/tasks/{{task_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
+            },
+            "description": "Update an existing task by ID."
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/tasks/{{task_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
+            },
+            "description": "Delete a specific task by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Admin Endpoints",
+      "description": "Admin operations - Requires ADMIN role",
+      "item": [
+        {
+          "name": "Get All Users' Tasks (ADMIN ONLY)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/admin/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "admin", "tasks"]
+            },
+            "description": "Retrieve all users' tasks (Admin only)."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string",
+      "description": "JWT Bearer token"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string",
+      "description": "Current user ID"
+    },
+    {
+      "key": "user_email",
+      "value": "",
+      "type": "string",
+      "description": "Current user email"
+    },
+    {
+      "key": "user_role",
+      "value": "",
+      "type": "string",
+      "description": "Current user role"
+    },
+    {
+      "key": "task_id",
+      "value": "",
+      "type": "string",
+      "description": "Last created task ID"
+    }
+  ]
+}
